@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruthBot - AI-Powered Fake News Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="logo">
+                <span class="logo-icon">🔍</span>
+                TruthBot
+            </div>
+            <button class="upgrade-btn">🚀 Upgrade to Premium</button>
+        </div>
+
+        <!-- Main Analysis Section -->
+        <div class="main-card">
+            <h1 class="title">AI-Powered Fake News Detection</h1>
+            <p class="subtitle">Paste your news article below and let our advanced AI determine its authenticity</p>
+
+            <div class="input-container">
+                <textarea 
+                    class="text-input" 
+                    id="newsText"
+                    placeholder="Paste your news article content here..."
+                    rows="8"
+                ></textarea>
+                
+                <div class="input-actions">
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="clearText()">
+                            <span class="btn-icon">🗑️</span>
+                            Clear
+                        </button>
+                        <button class="action-btn" onclick="pasteText()">
+                            <span class="btn-icon">📋</span>
+                            Paste
+                        </button>
+                        <button class="action-btn" onclick="generateSample()">
+                            <span class="btn-icon">✨</span>
+                            Try Sample
+                        </button>
+                    </div>
+                    <button class="primary-btn" id="analyzeBtn" onclick="analyzeNews()">
+                        <span class="btn-icon">🔍</span>
+                        Analyze News
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="result-container" id="resultContainer">
+                <div class="result-header">
+                    <div class="result-icon" id="resultIcon"></div>
+                    <div class="result-text">
+                        <div class="result-title" id="resultTitle"></div>
+                        <div class="result-subtitle" id="resultSubtitle"></div>
+                    </div>
+                </div>
+                <div class="confidence-section">
+                    <div class="confidence-label">Confidence Level</div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" id="confidenceFill"></div>
+                    </div>
+                    <div class="confidence-text" id="confidenceText"></div>
+                </div>
+                <div class="result-details" id="resultDetails"></div>
+            </div>
+        </div>
+
+        <!-- Additional Tools Section -->
+        <div class="tools-section">
+            <h2 class="tools-title">More AI Detection Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card" onclick="selectTool('bias')">
+                    <div class="tool-icon">⚖️</div>
+                    <div class="tool-content">
+                        <div class="tool-name">Bias Detector</div>
+                        <div class="tool-description">Identify political or editorial bias in articles</div>
+                    </div>
+                </div>
+                <div class="tool-card" onclick="selectTool('sentiment')">
+                    <div class="tool-icon">😊</div>
+                    <div class="tool-content">
+                        <div class="tool-name">Sentiment Analyzer</div>
+                        <div class="tool-description">Analyze emotional tone and sentiment</div>
+                    </div>
+                </div>
+                <div class="tool-card" onclick="selectTool('source')">
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-content">
+                        <div class="tool-name">Source Checker</div>
+                        <div class="tool-description">Verify credibility of news sources</div>
+                    </div>
+                </div>
+                <div class="tool-card" onclick="selectTool('fact')">
+                    <div class="tool-icon">✅</div>
+                    <div class="tool-content">
+                        <div class="tool-name">Fact Checker</div>
+                        <div class="tool-description">Cross-reference claims with verified facts</div>
+                    </div>
+                </div>
+                <div class="tool-card" onclick="selectTool('readability')">
+                    <div class="tool-icon">📖</div>
+                    <div class="tool-content">
+                        <div class="tool-name">Readability Score</div>
+                        <div class="tool-description">Assess complexity and reading level</div>
+                    </div>
+                </div>
+                <div class="tool-card" onclick="selectTool('ai')">
+                    <div class="tool-icon">🤖</div>
+                    <div class="tool-content">
+                        <div class="tool-name">AI Content Detector</div>
+                        <div class="tool-description">Detect AI-generated content</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2024 TruthBot. Powered by Advanced AI Technology.</p>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Analyzing content with AI...</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
