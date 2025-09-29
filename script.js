@@ -1,17 +1,6 @@
 // Configuration
 const API_BASE_URL = 'http://localhost:5001/api';
 
-// Sample news articles for demonstration
-const sampleArticles = [
-    "Scientists at Stanford University have discovered a new species of marine life in the Pacific Ocean depths. The research team found previously unknown bioluminescent creatures living near underwater volcanic vents at depths exceeding 3,000 meters. The discovery, published in Nature magazine, could provide insights into how life adapts to extreme conditions.",
-    
-    "Local community center in downtown receives $50,000 federal grant for youth programs. The funding will support after-school activities, summer camps, and educational workshops for children in underserved neighborhoods. Mayor Johnson announced the grant during yesterday's city council meeting, emphasizing the importance of investing in youth development.",
-    
-    "Government announces major infrastructure investment plan worth $2 billion. The initiative aims to modernize roads, bridges, and public transportation systems across the state over the next five years. Construction is expected to begin in early 2024, creating thousands of jobs in the engineering and construction sectors.",
-    
-    "Breaking: Alien spacecraft spotted hovering over major city for 3 hours, military confirms extraterrestrial contact established. Government officials admit to secret negotiations with alien beings who demand immediate surrender of all world governments. Citizens advised to stock up on supplies as invasion appears imminent."
-];
-
 // Utility Functions
 function showLoading() {
     document.getElementById('loadingOverlay').style.display = 'flex';
@@ -33,22 +22,13 @@ async function pasteText() {
         document.getElementById('newsText').value = text;
         updateCharacterCount();
     } catch (err) {
-        // Fallback for browsers that don't support clipboard API
         alert('Please paste manually using Ctrl+V (Windows/Linux) or Cmd+V (Mac)');
     }
-}
-
-function generateSample() {
-    const randomSample = sampleArticles[Math.floor(Math.random() * sampleArticles.length)];
-    document.getElementById('newsText').value = randomSample;
-    updateCharacterCount();
 }
 
 function updateCharacterCount() {
     const text = document.getElementById('newsText').value;
     const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
-    
-    // You can add a character counter display here if needed
     console.log(`Words: ${wordCount}, Characters: ${text.length}`);
 }
 
@@ -56,7 +36,6 @@ function updateCharacterCount() {
 async function analyzeNews() {
     const text = document.getElementById('newsText').value.trim();
     
-    // Input validation
     if (!text) {
         alert('Please enter some news content to analyze');
         return;
@@ -70,39 +49,24 @@ async function analyzeNews() {
     const analyzeBtn = document.getElementById('analyzeBtn');
     const originalText = analyzeBtn.innerHTML;
     
-    // Show loading state
     analyzeBtn.innerHTML = '<div class="loading-spinner" style="width: 20px; height: 20px; margin-right: 10px;"></div>Analyzing...';
     analyzeBtn.disabled = true;
     showLoading();
     hideResult();
     
     try {
-        // Make API call to backend
         const response = await fetch(`${API_BASE_URL}/predict`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                text: text,
-                timestamp: new Date().toISOString()
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text, timestamp: new Date().toISOString() })
         });
         
         if (!response.ok) {
-            if (response.status === 404) {
-                throw new Error('Backend server not found. Please make sure the Python server is running on port 5000.');
-            } else if (response.status === 500) {
-                const errorData = await response.json();
-                throw new Error(`Server error: ${errorData.error || 'Unknown error occurred'}`);
-            } else {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const result = await response.json();
         
-        // Validate response
         if (!result.prediction || result.confidence === undefined) {
             throw new Error('Invalid response from server');
         }
@@ -111,55 +75,12 @@ async function analyzeNews() {
         
     } catch (error) {
         console.error('Error:', error);
-        
-        // Show user-friendly error messages
-        let errorMessage = 'Error analyzing news. ';
-        
-        if (error.message.includes('fetch')) {
-            errorMessage += 'Please make sure the backend server is running on http://localhost:5000';
-        } else if (error.message.includes('Backend server not found')) {
-            errorMessage += 'Backend server not found. Please start the Python server first.';
-        } else {
-            errorMessage += error.message;
-        }
-        
-        alert(errorMessage);
-        
-        // Fallback to demo mode if backend is not available
-        if (error.message.includes('fetch') || error.message.includes('Backend server not found')) {
-            if (confirm('Backend server not available. Would you like to try demo mode?')) {
-                const demoResult = simulatePrediction(text);
-                showResult(demoResult);
-            }
-        }
-        
+        alert(`Error analyzing news: ${error.message}`);
     } finally {
-        // Reset button state
         analyzeBtn.innerHTML = originalText;
         analyzeBtn.disabled = false;
         hideLoading();
     }
-}
-
-// Demo mode fallback
-function simulatePrediction(text) {
-    // Simple heuristic for demo purposes
-    const words = text.toLowerCase().split(' ');
-    const suspiciousWords = ['breaking', 'shocking', 'unbelievable', 'exclusive', 'secret', 'exposed', 'alien', 'invasion', 'conspiracy'];
-    const reliableWords = ['study', 'research', 'university', 'published', 'according', 'official', 'government', 'announced'];
-    
-    const suspiciousCount = words.filter(word => suspiciousWords.includes(word)).length;
-    const reliableCount = words.filter(word => reliableWords.includes(word)).length;
-    
-    // Simple scoring algorithm for demo
-    const isFake = suspiciousCount > reliableCount || text.length < 50;
-    const baseConfidence = Math.random() * 0.2 + 0.75; // 75-95%
-    const confidence = Math.min(0.95, Math.max(0.60, baseConfidence));
-    
-    return {
-        prediction: isFake ? 'FAKE' : 'REAL',
-        confidence: confidence
-    };
 }
 
 // Results Display Function
@@ -174,10 +95,10 @@ function showResult(result) {
     
     const confidencePercent = Math.round(result.confidence * 100);
     
-    if (result.prediction === 'REAL') {
+    if (result.prediction === 'Credible') {
         container.className = 'result-container result-real';
         icon.textContent = '✅';
-        title.textContent = 'Likely Real News';
+        title.textContent = 'Likely Credible News';
         subtitle.textContent = 'This content appears to be authentic and reliable';
         details.innerHTML = `
             <strong>Analysis Summary:</strong><br>
@@ -189,7 +110,7 @@ function showResult(result) {
     } else {
         container.className = 'result-container result-fake';
         icon.textContent = '⚠️';
-        title.textContent = 'Potentially Fake News';
+        title.textContent = 'Potentially Not Credible News';
         subtitle.textContent = 'This content may contain misinformation or bias';
         details.innerHTML = `
             <strong>Warning Signs Detected:</strong><br>
@@ -202,10 +123,7 @@ function showResult(result) {
     
     confidenceFill.style.width = confidencePercent + '%';
     confidenceText.textContent = `${confidencePercent}%`;
-    
     container.style.display = 'block';
-    
-    // Scroll to results
     setTimeout(() => {
         container.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
@@ -225,41 +143,33 @@ function selectTool(toolType) {
         'readability': 'Readability Score',
         'ai': 'AI Content Detector'
     };
-    
-    alert(`${toolNames[toolType]} selected!\n\nThis feature would integrate additional AI models for comprehensive content analysis. Coming soon in the premium version!`);
+    alert(`${toolNames[toolType]} selected!\n\nThis feature will be integrated in a future version.`);
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
     const textarea = document.getElementById('newsText');
     
-    // Auto-resize textarea
     textarea.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = Math.max(200, this.scrollHeight) + 'px';
         updateCharacterCount();
     });
     
-    // Keyboard shortcuts
     document.addEventListener('keydown', function(e) {
-        // Ctrl+Enter or Cmd+Enter to analyze
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             e.preventDefault();
             analyzeNews();
         }
-        
-        // Ctrl+Shift+C or Cmd+Shift+C to clear
         if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
             e.preventDefault();
             clearText();
         }
     });
     
-    // Prevent form submission on Enter
     textarea.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            // Add new line instead
             const start = this.selectionStart;
             const end = this.selectionEnd;
             this.value = this.value.substring(0, start) + '\n' + this.value.substring(end);
@@ -277,7 +187,7 @@ async function checkAPIHealth() {
             return true;
         }
     } catch (error) {
-        console.log('⚠️ Backend API not available - using demo mode');
+        console.log('⚠️ Backend API not available');
         return false;
     }
 }
@@ -286,7 +196,8 @@ async function checkAPIHealth() {
 window.addEventListener('load', function() {
     checkAPIHealth();
     console.log('🔍 TruthBot initialized');
-    console.log('Keyboard shortcuts:');
-    console.log('- Ctrl+Enter: Analyze news');
-    console.log('- Ctrl+Shift+C: Clear text');
+    console.log('Keyboard shortcuts: Ctrl+Enter = Analyze, Ctrl+Shift+C = Clear text');
+});
+document.getElementById("closeResult").addEventListener("click", function() {
+    document.getElementById("resultContainer").style.display = "none";
 });
