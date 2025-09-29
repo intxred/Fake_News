@@ -11,7 +11,6 @@
         <!-- Header Section -->
         <div class="header">
             <div class="logo">
-                <span class="logo-icon">🔍</span>
                 TruthBot
             </div>
             <button class="upgrade-btn">🚀 Upgrade to Premium</button>
@@ -23,12 +22,21 @@
             <p class="subtitle">Paste your news article below and let our advanced AI determine its authenticity</p>
 
             <div class="input-container">
+                <input 
+                    type="text" 
+                    class="text-input" 
+                    id="newsTitle" 
+                    placeholder="Enter the news article title here..."
+                    style="margin-bottom: 10px;"
+                >
+            
                 <textarea 
                     class="text-input" 
                     id="newsText"
                     placeholder="Paste your news article content here..."
                     rows="8"
                 ></textarea>
+            
                 
                 <div class="input-actions">
                     <div class="action-buttons">
@@ -40,20 +48,17 @@
                             <span class="btn-icon">📋</span>
                             Paste
                         </button>
-                        <button class="action-btn" onclick="generateSample()">
-                            <span class="btn-icon">✨</span>
-                            Try Sample
-                        </button>
                     </div>
                     <button class="primary-btn" id="analyzeBtn" onclick="analyzeNews()">
-                        <span class="btn-icon">🔍</span>
-                        Analyze News
+                        <span class="btn-icon"></span>
+                        Analyze
                     </button>
                 </div>
             </div>
 
             <!-- Results Section -->
             <div class="result-container" id="resultContainer">
+                <button class="close-btn" id="closeResult">&times;</button>
                 <div class="result-header">
                     <div class="result-icon" id="resultIcon"></div>
                     <div class="result-text">
@@ -71,6 +76,69 @@
                 <div class="result-details" id="resultDetails"></div>
             </div>
         </div>
+
+        <section class="banner">
+            <div class="image">
+              <img src="ai.jpg" alt="Artwork 2">
+              <span class="tag" style="background:#4e9f6e;">Inspiration</span>
+          </div>
+          <div class="text">
+              <h1>From Headlines to Truth</h1>
+              <p>How data-driven analysis, natural language processing, and machine learning work together to distinguish credible journalism from misleading information in today’s fast-moving digital world. By evaluating linguistic patterns, context, and source reliability, TruthBot doesn’t just flag suspicious content—it provides a deeper understanding of why information may be misleading. In an era where news spreads instantly across multiple platforms, TruthBot ensures that every reader is empowered with the tools to critically assess what they consume, turning overwhelming streams of information into clarity and confidence.</p>
+              <button class="order-btn" style="background:#4e9f6e;">Explore</button>
+          </div>
+        
+      </section>
+      <section class="banner">
+        <div class="text">
+            <h1>Why Choose Truthbot?</h1>
+            <p>In an age where misinformation spreads faster than facts, TruthBot empowers you to stay informed with confidence. Built on advanced machine learning and natural language processing, it analyzes thousands of data points to detect patterns of credibility in real time. Whether for students, researchers, or everyday readers, TruthBot provides clarity, accuracy, and transparency—helping you separate truth from deception with ease.</p>
+            <button class="order-btn" style="background:#4e9f6e;">Explore</button>
+        </div>
+    
+        </section>
+        <!-- Scrollable Features Section -->
+                <div class="features-scroll">
+                    <div class="features-container">
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-content">
+                                <h3>Detailed Analysis</h3>
+                                <p>Know exactly which part of the text appears suspicious or AI-generated.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <div class="feature-content">
+                                <h3>High Accuracy</h3>
+                                <p>Advanced AI models deliver highly reliable detection results.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📥</div>
+                            <div class="feature-content">
+                                <h3>Downloadable Reports</h3>
+                                <p>Save in-depth PDF reports for every detection.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌍</div>
+                            <div class="feature-content">
+                                <h3>Multilingual Support</h3>
+                                <p>Supports multiple languages with accurate detection.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-content">
+                                <h3>Fast Results</h3>
+                                <p>Receive your AI detection report within seconds.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+        
 
         <!-- Additional Tools Section -->
         <div class="tools-section">
