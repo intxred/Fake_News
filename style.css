@@ -196,7 +196,7 @@ body::before {
     font-size: 48px;
     font-weight: 900;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, #dcdce2 0%, #dcdce2 50%, #dcdce2 100%);
+    background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -375,6 +375,24 @@ input.text-input {
 }
 
 /* Results Styles */
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #ff4d4d; /* red on hover */
+    transform: scale(1.2);
+}
 .result-container {
     margin-top: 32px;
     padding: 32px;
@@ -534,7 +552,7 @@ input.text-input {
     font-size: 36px;
     font-weight: 900;
     margin-bottom: 40px;
-    background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #6366f1 100%);
+    background: linear-gradient(135deg, #dcdce2 0%, #dcdce2 50%, #dcdce2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -700,98 +718,152 @@ input.text-input {
 @keyframes fadeInText {
     to { opacity: 1; }
 }
+/* Scrollable Features Section */
+.features-scroll {
+    padding: 60px 20px;
+    background: transparent; /* dark background so white text is visible */
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto; /* center container */
+}
 
+.features-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #fff; /* white title */
+}
+
+.features-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* exactly 5 per row */
+    gap: 20px;
+}
+
+.feature-card {
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.08), transparent); /* subtle gradient for depth */
+    border-radius: 16px; /* smoother corners */
+    padding: 30px 24px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.35), 
+                0 2px 4px rgba(0,0,0,0.2); /* layered shadow for realism */
+    transition: transform 0.25s ease, 
+                box-shadow 0.25s ease, 
+                background 0.3s ease;
+    cursor: pointer; /* makes it feel interactive */
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.02); /* smoother lift + slight zoom */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.45), 
+                0 4px 8px rgba(0,0,0,0.3);
+    background: linear-gradient(145deg, #242424, #333); /* slightly lighter on hover */
+}
+
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* white icons */
+}
+
+/* ✅ Force all card text to white */
+.feature-content h3,
+.feature-content p {
+    color: #fff;
+}
+
+.feature-content h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.feature-content p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+/* Banner Section */
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 15px 20px;
+    background: transparent; /* 🔥 transparent background */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Image wrapper */
+.banner .image {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.banner .image img {
+    width: 70%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+}
+
+/* Tag styling */
+.banner .tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Text section */
+.banner .text {
+    flex: 1;
+    color: #fff; /* default white (works for dark background) */
+}
+
+.banner .text h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.banner .text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #ddd; /* softer white */
+}
+
+/* Button styling */
+.banner .order-btn {
+    border: none;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.banner .order-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+}
 /* Enhanced Responsive Design */
-@media (max-width: 1024px) {
-    .container {
-        padding: 20px;
-    }
-    
-    .main-card, .tools-section {
-        padding: 36px;
-    }
-    
-    .title {
-        font-size: 40px;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 16px;
-    }
-
-    .header {
-        flex-direction: column;
-        gap: 20px;
-        padding: 24px;
-    }
-
-    .main-card, .tools-section {
-        padding: 28px;
-    }
-
-    .title {
-        font-size: 32px;
-    }
-
-    .subtitle {
-        font-size: 18px;
-        margin-bottom: 36px;
-    }
-
-    .input-actions {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
-    }
-
-    .action-buttons {
-        justify-content: center;
-        order: 2;
-        margin-top: 8px;
-    }
-
-    .primary-btn {
-        order: 1;
-        justify-content: center;
-        padding: 18px 24px;
-    }
-
-    .tools-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .tool-card {
-        padding: 24px;
-        gap: 20px;
-    }
-
-    .tool-icon {
-        width: 64px;
-        height: 64px;
-        font-size: 24px;
-    }
-
-    .result-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-
-    .result-title {
-        font-size: 28px;
-    }
-
-    .result-icon {
-        width: 64px;
-        height: 64px;
-        font-size: 32px;
-        padding: 16px;
-    }
-}
-
 @media (max-width: 480px) {
     .text-input {
         padding: 20px;
