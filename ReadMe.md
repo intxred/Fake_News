@@ -1,5 +1,6 @@
-Live server
+Live server(UI)
 python3 -m http.server 5501 # if 5500 is being used
 
-Run python3 app.py
+to run cd backend
 source venv/bin/activate
+python3 app.py
